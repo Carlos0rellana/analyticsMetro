@@ -1,0 +1,138 @@
+{
+    "mwn": {
+          "id":"mwn",
+          "websiteDomain": "https://metroworldnews.com",
+          "websiteName": "Metro World News",
+          "status":true,
+          "metroId":"227458294",
+          "relativeUrl":true
+    },
+    "mwnargentina": {
+            "id":"mwnargentina",
+            "websiteDomain": "https://publimetro.com.ar",
+            "websiteName": "Publimetro Argentina",
+            "status":true,
+            "metroId":"208687521",
+            "relativeUrl":true
+    },
+    "mwnbrasil": {
+            "id":"mwnbrasil",
+            "websiteDomain": "https://www.metroworldnews.com.br",
+            "websiteName": "Metro World News Brasil",
+            "status":true,
+            "metroId":"120795368",
+            "relativeUrl":true
+    },
+    "mwnchile": {
+            "id":"mwnchile",
+            "websiteDomain": "https://www.publimetro.cl",
+            "websiteName": "Publimetro Chile",
+            "status":true,
+            "metroId":"120757578",
+            "relativeUrl":true
+    },
+    "mwncolombia": {
+            "id":"mwncolombia",
+            "websiteDomain": "https://www.publimetro.co",
+            "websiteName": "Publimetro Colombia",
+            "status":true,
+            "metroId":"120793367",
+            "relativeUrl":true
+    },
+    "mwnecuador": {
+            "id":"mwnecuador",
+            "websiteDomain": "https://www.metroecuador.com.ec",
+            "websiteName": "Metro Ecuador",
+            "status":true,
+            "metroId":"120789878",
+            "relativeUrl":true
+    },
+    "mwnmexico": {
+            "id":"mwnmexico",
+            "websiteDomain": "https://www.publimetro.com.mx",
+            "websiteName": "Publimetro México",
+            "status":true,
+            "metroId":"120763475",
+            "relativeUrl":true
+    },
+    "mwnperu": {
+            "id":"mwnperu",
+            "websiteDomain": "https://www.publimetro.pe",
+            "websiteName": "Publimetro Perú",
+            "status":true,
+            "metroId":"222966379",
+            "relativeUrl":true
+    },
+    "mwnpuertorico": {
+            "id":"mwnpuertorico",
+            "websiteDomain": "https://www.metro.pr",
+            "websiteName": "Metro Puerto Rico",
+            "status":true,
+            "metroId":"120763073",
+            "relativeUrl":true
+    },
+    "activo": {
+            "id":"activo",
+            "websiteDomain": "https://www.activopr.com",
+            "websiteName": "Activo",
+            "status":true,
+            "metroId":"158967325",
+            "relativeUrl":true
+    },
+    "comutricolor": {
+            "id":"comutricolor",
+            "websiteDomain": "https://www.comutricolor.com",
+            "websiteName": "ComuTricolor",
+            "status":true,
+            "metroId":"68872460",
+            "relativeUrl":true
+    },
+    "elcalce": {
+            "id":"elcalce",
+            "websiteDomain": "https://www.elcalce.com",
+            "websiteName": "El Calce",
+            "status":true,
+            "metroId":"129409504",
+            "relativeUrl":true
+    },
+    "fayerwayer": {
+            "id":"fayerwayer",
+            "websiteDomain": "www.fayerwayer.com",
+            "websiteName": "FayerWayer",
+            "status":true,
+            "metroId":"158967325",
+            "relativeUrl":false
+    },
+    "ferplei": {
+            "id":"ferplei",
+            "websiteDomain": "https://ferplei.com",
+            "websiteName": "Ferplei",
+            "status":true,
+            "metroId":"230035980",
+            "relativeUrl":true
+    },
+    "nuevamujer": {
+            "id":"nuevamujer",
+            "websiteDomain": "https://www.nuevamujer.com",
+            "websiteName": "Nueva Mujer",
+            "status":true,
+            "metroId":"120935413",
+            "relativeUrl":true
+    },
+    "novamulher": {
+            "id":"novamulher",
+            "websiteDomain": "https://www.novamulher.com",
+            "websiteName": "Nova Mulher",
+            "status":true,
+            "metroId":"206716984",
+            "relativeUrl":true
+    },
+    "sabrosia": {
+            "id":"sabrosia",
+            "websiteDomain": "https://www.sabrosia.pr",
+            "websiteName": "Sabrosia",
+            "status":true,
+            "metroId":"158957476",
+            "relativeUrl":true
+    }
+}

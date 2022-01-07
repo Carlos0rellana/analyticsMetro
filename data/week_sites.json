@@ -1,0 +1,26 @@
+{
+    "mwnpuertorico": {
+            "id":"mwnpuertorico",
+            "websiteDomain": "https://www.metro.pr",
+            "websiteName": "Metro Puerto Rico",
+            "status":true
+    },
+    "activo": {
+            "id":"activo",
+            "websiteDomain": "https://www.activopr.com",
+            "websiteName": "Activo",
+            "status":true
+    },
+    "elcalce": {
+            "id":"elcalce",
+            "websiteDomain": "https://www.elcalce.com",
+            "websiteName": "El Calce",
+            "status":true
+    },
+    "sabrosia": {
+            "id":"sabrosia",
+            "websiteDomain": "https://www.sabrosia.pr",
+            "websiteName": "Sabrosia",
+            "status":true
+    }
+}

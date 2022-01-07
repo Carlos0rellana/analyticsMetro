@@ -1,0 +1,17 @@
+{
+    "name": "publimetro/check-analytics",
+    "autoload": {
+        "psr-4": {
+            "Publimetro\\CheckAnalytics\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Carlos Orellana",
+            "email": "carlos.orellana@publimetro.cl"
+        }
+    ],
+    "require": {
+        "google/apiclient": "^2.0"
+    }
+}
