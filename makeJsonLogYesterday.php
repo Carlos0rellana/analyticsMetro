@@ -4,7 +4,7 @@
     require_once(ROOT_DIR.'/control/functions_analytics.php');
     require_once(ROOT_DIR.'/model/conection-query-mysql.php');
 
-    $yesterday = date('Y-m-d',strtotime(date('Y-m-d').' -1 days'));
+    $yesterday = date('Y-m-d',strtotime(date('Y-m-d').' -2 days'));
     createLogOneDayTenDaysAgo($yesterday,$yesterday.'.json');
 
 ?>

@@ -101,7 +101,15 @@
       $dateOfChecks = array();
       $dateOfChecks['total'] = 0;
       $fileRoute=$jsonLogFolder.'/'.$today;
+      $fileLogStatus=$jsonLogFolder.'/'.$today.'/status.json';
       $checkStatus = verifyQtyQueryByDay($fileRoute);
+      
+      if(file_exists($fileLogStatus)){
+         $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
+      }else{
+         $tempStatus = array();
+      }
+      
       if($checkStatus['status']){
          for ($i=0; $i <= $qtyLimitDayBack ; $i++) { 
             $currentDay = date('Y-m-d', strtotime($start.' -'.$i.' days'));
@@ -109,7 +117,6 @@
             foreach ($listSites as $key => $value) {
                $resultArticleListByDay = getArticleListFromPublimetroByDay($key,$currentDay);
                $qtyQueries = count($resultArticleListByDay)>0?count($resultArticleListByDay):0;
-               if(($checkStatus['success']+$qtyQueries)<=$googleLimitRequest){
                   if($qtyQueries>0){
                      $dateOfChecks[$start][$currentDay][$key]['qty'] = $qtyQueries;
                      $dateOfChecks[$start][$currentDay][$key]['details'] = $resultArticleListByDay;
@@ -121,8 +128,9 @@
                      }
                      makeJsonLogByDate($fileRoute,$jsonName,$currentDay,$start,$dateOfChecks);
                   }
-               }
             }
+            $tempStatus[$day] = ['qty'=>$dateOfChecks['total'],'progres'=>0,'ready'=>true,'current'=>false];  
+            checkFileOrJsonCreate($fileLogStatus,$tempStatus);
          }
       }
    }
@@ -131,9 +139,11 @@
       global $qtyLimitDayBack,$qtyLimitDayBack,$listSites,$jsonLogFolder;
       $today = date('Y-m-d');
       $fileLogRoute=$jsonLogFolder.'/'.$today.'/'.$jsonName;
-      if(file_exists($fileLogRoute)){
+      $fileLogStatus=$fileRoute.'/'.$today.'/status.json';
+      if(file_exists($fileLogRoute) && file_exists($fileLogStatus)){
          $listOfArticlesToSearch = json_decode(file_get_contents($fileLogRoute),true);
-         if(array_key_exists('total',$listOfArticlesToSearch) && $listOfArticlesToSearch['total']>0){
+         $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
+         if(array_key_exists('total',$listOfArticlesToSearch) && $listOfArticlesToSearch['total']>0 && $tempStatus[$day]['ready']){
             $limitQueryBySeconds = 10;
             $count = 0;
             foreach($listOfArticlesToSearch as $key => $item){
@@ -156,6 +166,9 @@
                                        print_r(insertGoogleDataArticles($result));
                                        checkFileOrJsonCreate($fileLogRoute,$listOfArticlesToSearch);
                                     }
+                                    $tempStatus[$day]['progres'] += 1;
+                                    $tempStatus[$day]['current']=true;  
+                                    checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                  }else{
                                     return null;
                                  }
@@ -165,6 +178,10 @@
                      }
                   }
                }
+            }
+            if($tempStatus[$day]['progres'] >= $tempStatus[$day]['total']){
+               $tempStatus[$day]['current']=false;  
+               checkFileOrJsonCreate($fileLogStatus,$tempStatus);
             }
          }else{
             createLogOneDayTenDaysAgo($day,$jsonName);
