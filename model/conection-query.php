@@ -40,5 +40,8 @@ function getSearchListArticles($site,$start,$end=false,$from=0){
   if(!$end){$end=$start;}
   $query='content/v4/search/published?website='.$site.'&q=publish_date:%5B'.$start.'+TO+'.$end.'%5D+AND+canonical_website:'.$site.'&_sourceInclude=_id,type,headlines.basic,publish_date,credits,canonical_website,label,websites,additional_properties,taxonomy.primary_section&size=100&from='.$from;
   return getResultListFromArc(makeArrayQuerie($query));
-}  
+}
+function getSearchListArticlesOpenQuery($query){
+  return getResultListFromArc(makeArrayQuerie($query));
+} 
 ?>

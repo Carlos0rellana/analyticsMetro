@@ -15,9 +15,9 @@
         return $msj;
     }
 
-    function conectionLocal($query){
+    function conectionCustom($query){
         require ROOT_DIR.'/config/dataConection.php';
-        $mysqli = new mysqli($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);
+        $mysqli = new mysqli($servername,$username,$password,$database);
         /* check connection */
         if (mysqli_connect_errno()) {
             printf("Error de conexión: %s\n", mysqli_connect_error());
@@ -92,12 +92,12 @@
         require_once(ROOT_DIR.'/objects/source.php');
         require_once(ROOT_DIR.'/objects/analytics.php');
         $sql = 'insert into analytics (id_article,site,date,page_view) values ("'.$analytics->getIdArticle().'","'.$analytics->getSite().'","'.$analytics->getDate().'","'.$analytics->getPageView().'");';
-        $currentId = conectionLocal($sql)['success'];
+        $currentId = conectionCustom($sql)['success'];
         $analytics->setBdId($currentId);
         $sourceList = $analytics->getSourceDetails();
         foreach($sourceList as $key => $value){
             $sqlForSources = 'insert into traffic_source (id_analytics,source,page_view,user) values ("'.$analytics->getBdId().'","'.$value->getSource().'","'.$value->getPageView().'","'.$value->getUser().'");';    
-            conectionLocal($sqlForSources);
+            conectionCustom($sqlForSources);
         }
     }
 
