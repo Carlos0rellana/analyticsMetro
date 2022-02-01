@@ -121,7 +121,6 @@
       $checkDate = dateOrderList($checkToday)[0];
       $next = true;
       $total = 0;
-      echo('dentro de getNextdayTo search');
       foreach($checkToday as $value){
          $total += $value['qty'] - $value['progres'];
          if($value['ready']===false){$next = false;}
@@ -134,8 +133,8 @@
             $checkDate = $tempDate;
          }
          foreach($checkYesterday as $key => $value){
-            print_r($value); 
-            print_r($value,'<hr/>');
+            //print_r($value); 
+            //print_r($value,'<hr/>');
             if($value['ready']===false){$next = false;}
             if($value['qty'] > $value['progres'] && !array_key_exists($key,$checkToday)){
                $checkToday[$key] = $value;
@@ -150,10 +149,8 @@
          }
       }
       if($next && $total < $googleLimitRequest){
-         echo('return date');
          return(date('Y-m-d',strtotime($checkDate.' -1 days')));
       }
-      echo('return false');
       return false;
    }
 
@@ -177,7 +174,6 @@
       
       if($checkStatus['status']){
          if(!$tempStatus[$day]['ready']){
-            echo('HOLA<br>');
             for ($i=0; $i <= $qtyLimitDayBack ; $i++) { 
                $currentDay = date('Y-m-d', strtotime($start.' -'.$i.' days'));
                $dateOfChecks[$start][$currentDay] = array();
@@ -202,16 +198,17 @@
             $tempStatus[$day] = ['qty'=>$dateOfChecks['total'],'progres'=>0,'ready'=>true,'current'=>false];  
             checkFileOrJsonCreate($fileLogStatus,$tempStatus);
             $time_elapsed_secs = microtime(true) - $startTime;
-            print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución despues del FOR.<br>');
+            //print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución despues del FOR.<br>');
             return false;
          }else{
             $dateSearch = getNextDayTosearch($day,$today);
             $testingCount=0;
             if($dateSearch!==false && $testingCount===0){
-               echo('Día de busqueda =>'.$dateSearch.' <br> Carpeta donde busca =>'.$today.'<br> Contador =>'.$testingCount);
+               //echo('Día de busqueda =>'.$dateSearch.' <br> Carpeta donde busca =>'.$today.'<br> Contador =>'.$testingCount);
                print_r(createLogOneDayTenDaysAgo($dateSearch,$dateSearch.'.json',$today));
+               echo('\n');
                $time_elapsed_secs = microtime(true) - $startTime;
-               print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución.<br>');
+               //print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución.<br>');
                $testingCount++;
                return 'salida rara';
             }
@@ -246,18 +243,16 @@
       $fileRoute = $jsonLogFolder.'/'.$today;
       $fileLogRoute =$fileRoute.'/'.$jsonName;
       $fileLogStatus=$fileRoute.'/status.json';
+      echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
       if(file_exists($fileLogRoute) && file_exists($fileLogStatus)){
          $listOfArticlesToSearch = json_decode(file_get_contents($fileLogRoute),true);
          $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
 
          $time_elapsed_secs = microtime(true) - $startTime;
-         echo('<br/>'.$fileLogRoute.'<hr/>');
-         print_r(timeCount($time_elapsed_secs).' <= tiempo de lectura json.<br>');
          
          if($tempStatus[$day]['ready']){
             $limitQueryBySeconds = 10;
             $count = 0;
-            echo('estamos en el if');
             foreach($listOfArticlesToSearch as $key => $item){
                if($key !== 'total'){
                   foreach($item as $dateNews => $data){
@@ -273,19 +268,26 @@
                                  if($count < $limitQueryBySeconds){
                                     $result = googleGetInfo($currentArticle,$day);
                                     $count++;
+                                    print_r($result);
                                     if(is_object($result) || is_array($result)){
+                                       echo('dentro del guardado');
                                        $listOfArticlesToSearch[$key][$dateNews][$id]['details'][$idArticle]['searchStatus'] = true;
-                                       print_r(insertGoogleDataArticles($result));
+                                       
+                                       echo('<hr/>\n');
+                                       print_r(insertGoogleDataArticles($result)[1]);
+                                       echo('<hr/>\n');
+
                                        checkFileOrJsonCreate($fileLogRoute,$listOfArticlesToSearch);
+                                       
+                                       $tempStatus[$day]['progres'] += 1;
+                                       $tempStatus[$day]['current']=true;  
+                                       checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                     }
-                                    $tempStatus[$day]['progres'] += 1;
-                                    $tempStatus[$day]['current']=true;  
-                                    checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                     $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.<br>');
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
                                  }else{
                                     $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución.<br>');
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
                                     return null;
                                  }
                               }
@@ -296,7 +298,7 @@
                }
             }
             if($tempStatus[$day]['progres'] >= $tempStatus[$day]['qty']){
-               print_r('check status');
+               //print_r('check status');
                $i = array_search($day,array_keys($tempStatus));
                $count=0;
                foreach ($tempStatus as $key => $value) {
@@ -309,7 +311,7 @@
          }
       }
       $time_elapsed_secs = microtime(true) - $startTime;
-      print_r($time_elapsed_secs.' <= tiempo de ejecución.<br>');
+      print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
    }
 
    //recibe un array con una estructura que contiene fechas y dentro de ellas, las fechas consultadas en cada una 

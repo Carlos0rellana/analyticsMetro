@@ -4,8 +4,8 @@
     require_once(ROOT_DIR.'/control/functions_analytics.php');
     require_once(ROOT_DIR.'/model/conection-query-mysql.php');
 
-    $yesterday = date('Y-m-d',strtotime(date('Y-m-d').' -2 days'));
-    $tomorrow = date('Y-m-d',strtotime(date('Y-m-d').' +1 days'));
+    $yesterday = '2021-11-21';//date('Y-m-d',strtotime(date('Y-m-d').' -2 days'));
+    $tomorrow = date('Y-m-d',strtotime(date('Y-m-d').' +0 days'));
     print_r(createLogOneDayTenDaysAgo($yesterday,$yesterday.'.json',$tomorrow));
     //echo(getNextDayTosearch('2022-01-24',$yesterday));
 

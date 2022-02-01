@@ -1,7 +1,8 @@
 <?php
-    function conection($query){
+    function conection($query,$local=false){
         require ROOT_DIR.'/config/dataConection.php';
         $conn = mysqli_connect($servername,$username,$password,$database);
+        if($local){$conn = mysqli_connect($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
         $msj = array();
         if (!$conn) {
             die("Connection failed: " . mysqli_connect_error());
@@ -15,9 +16,10 @@
         return $msj;
     }
 
-    function conectionCustom($query){
+    function conectionCustom($query,$local=false){
         require ROOT_DIR.'/config/dataConection.php';
         $mysqli = new mysqli($servername,$username,$password,$database);
+        if($local){$mysqli = new mysqli($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
         /* check connection */
         if (mysqli_connect_errno()) {
             printf("Error de conexión: %s\n", mysqli_connect_error());
@@ -92,13 +94,22 @@
         require_once(ROOT_DIR.'/objects/source.php');
         require_once(ROOT_DIR.'/objects/analytics.php');
         $sql = 'insert into analytics (id_article,site,date,page_view) values ("'.$analytics->getIdArticle().'","'.$analytics->getSite().'","'.$analytics->getDate().'","'.$analytics->getPageView().'");';
-        $currentId = conectionCustom($sql)['success'];
-        $analytics->setBdId($currentId);
+        $tempCurrent = conectionCustom($sql);
+        $sourceSet = array();
+        $currentId = array_key_exists('success',$tempCurrent)? $tempCurrent['success']:false;
         $sourceList = $analytics->getSourceDetails();
-        foreach($sourceList as $key => $value){
-            $sqlForSources = 'insert into traffic_source (id_analytics,source,page_view,user) values ("'.$analytics->getBdId().'","'.$value->getSource().'","'.$value->getPageView().'","'.$value->getUser().'");';    
-            conectionCustom($sqlForSources);
+        
+        if($currentId!==false && count($sourceList)>0){
+            $sourceList = $analytics->getSourceDetails();
+            foreach($sourceList as $key => $value){
+                $sqlForSources = 'insert into traffic_source (id_analytics,source,page_view,user) values ("'.$currentId.'","'.$value->getSource().'","'.$value->getPageView().'","'.$value->getUser().'");';    
+                $sourceSet[$key]=conectionCustom($sqlForSources);
+            }
         }
+        
+        return(array($tempCurrent,$sourceSet));
     }
 
+    //insert into analytics (id_article,site,date,page_view) values ("ZNCROCOKMRCGNKPOIZVNIMMFSM","novamulher","2022-01-30","0");
 ?>
+
