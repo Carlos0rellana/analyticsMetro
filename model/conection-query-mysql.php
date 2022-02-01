@@ -98,6 +98,10 @@
         $sourceSet = array();
         $currentId = array_key_exists('success',$tempCurrent)? $tempCurrent['success']:false;
         $sourceList = $analytics->getSourceDetails();
+         
+        echo('================================\n');
+        echo($tempCurrent);
+        echo('================================\n');
         
         if($currentId!==false && count($sourceList)>0){
             $sourceList = $analytics->getSourceDetails();
