@@ -100,7 +100,7 @@
         $sourceList = $analytics->getSourceDetails();
          
         echo('================================\n');
-        echo($tempCurrent);
+        print_r($tempCurrent);
         echo('================================\n');
         
         if($currentId!==false && count($sourceList)>0){
