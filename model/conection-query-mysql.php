@@ -99,9 +99,9 @@
         $currentId = array_key_exists('success',$tempCurrent)? $tempCurrent['success']:false;
         $sourceList = $analytics->getSourceDetails();
          
-        echo('================================\n');
-        print_r($tempCurrent);
-        echo('================================\n');
+        echo('================================\r\n');
+        print_r($sql);
+        echo('================================\r\n');
         
         if($currentId!==false && count($sourceList)>0){
             $sourceList = $analytics->getSourceDetails();
