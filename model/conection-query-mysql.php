@@ -98,10 +98,6 @@
         $sourceSet = array();
         $currentId = array_key_exists('success',$tempCurrent)? $tempCurrent['success']:false;
         $sourceList = $analytics->getSourceDetails();
-         
-        echo('================================\r\n');
-        print_r($sql);
-        echo('================================\r\n');
         
         if($currentId!==false && count($sourceList)>0){
             $sourceList = $analytics->getSourceDetails();
@@ -113,7 +109,4 @@
         
         return(array($tempCurrent,$sourceSet));
     }
-
-    //insert into analytics (id_article,site,date,page_view) values ("ZNCROCOKMRCGNKPOIZVNIMMFSM","novamulher","2022-01-30","0");
 ?>
-

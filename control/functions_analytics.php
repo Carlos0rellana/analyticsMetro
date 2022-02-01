@@ -239,16 +239,16 @@
 
    function searchOnGoogleOneDayTenDaysAgo($day,$jsonName,$today){
       global $qtyLimitDayBack,$qtyLimitDayBack,$listSites,$jsonLogFolder;
-      $startTime = microtime(true);
+      //$startTime = microtime(true);
       $fileRoute = $jsonLogFolder.'/'.$today;
       $fileLogRoute =$fileRoute.'/'.$jsonName;
       $fileLogStatus=$fileRoute.'/status.json';
-      echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
+      //echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
       if(file_exists($fileLogRoute) && file_exists($fileLogStatus)){
          $listOfArticlesToSearch = json_decode(file_get_contents($fileLogRoute),true);
          $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
 
-         $time_elapsed_secs = microtime(true) - $startTime;
+         //$time_elapsed_secs = microtime(true) - $startTime;
          
          if($tempStatus[$day]['ready']){
             $limitQueryBySeconds = 10;
@@ -268,14 +268,10 @@
                                  if($count < $limitQueryBySeconds){
                                     $result = googleGetInfo($currentArticle,$day);
                                     $count++;
-                                    print_r($result);
                                     if(is_object($result) || is_array($result)){
-                                       echo('dentro del guardado');
                                        $listOfArticlesToSearch[$key][$dateNews][$id]['details'][$idArticle]['searchStatus'] = true;
                                        
-                                       echo('<hr/>\n');
-                                       print_r(insertGoogleDataArticles($result)[1]);
-                                       echo('<hr/>\n');
+                                       insertGoogleDataArticles($result);
 
                                        checkFileOrJsonCreate($fileLogRoute,$listOfArticlesToSearch);
                                        
@@ -283,11 +279,11 @@
                                        $tempStatus[$day]['current']=true;  
                                        checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                     }
-                                    $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
+                                    //$time_elapsed_secs = microtime(true) - $startTime;
+                                    //print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
                                  }else{
-                                    $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
+                                    //$time_elapsed_secs = microtime(true) - $startTime;
+                                    //print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
                                     return null;
                                  }
                               }
@@ -310,8 +306,8 @@
             }
          }
       }
-      $time_elapsed_secs = microtime(true) - $startTime;
-      print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
+      //$time_elapsed_secs = microtime(true) - $startTime;
+      //print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
    }
 
    //recibe un array con una estructura que contiene fechas y dentro de ellas, las fechas consultadas en cada una 
