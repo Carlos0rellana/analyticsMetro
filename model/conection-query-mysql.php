@@ -1,5 +1,5 @@
 <?php
-    function conection($query,$local=false){
+    function conection($query,$local=true){
         require ROOT_DIR.'/config/dataConection.php';
         $conn = mysqli_connect($servername,$username,$password,$database);
         if($local){$conn = mysqli_connect($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
@@ -16,7 +16,7 @@
         return $msj;
     }
 
-    function conectionCustom($query,$local=false){
+    function conectionCustom($query,$local=true){
         require ROOT_DIR.'/config/dataConection.php';
         $mysqli = new mysqli($servername,$username,$password,$database);
         if($local){$mysqli = new mysqli($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
@@ -88,6 +88,16 @@
     function checkArticlesByDate($idSite,$date){
         $sql = "select  id, site, title, url, main_category, author, primary_site, date_publish, type  from article where date_publish  between '".$date." 00:00:00' and '".$date." 23:59:59' and site='".$idSite."' order by date_publish asc;";
         return conection($sql);
+    }
+
+    function checkNotExistenceOfArticleAnalytics($analytics){
+        require_once(ROOT_DIR.'/objects/analytics.php');
+        $sql = "select count(*) total from analytics where id_article='".$analytics->getIdArticle()."' and site='".$analytics->getSite()."' and date='".$analytics->getDate()."';";
+        $tempCurrent = conection($sql);
+        if(array_key_exists('success',$tempCurrent)){
+            return $tempCurrent['success'][0]['total'] < 1;
+        }
+        return null;
     }
 
     function insertGoogleDataArticles($analytics){

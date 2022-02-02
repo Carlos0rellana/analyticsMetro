@@ -4,6 +4,8 @@
    require_once(ROOT_DIR.'/objects/analytics.php');
    require_once(ROOT_DIR.'/control/basicFunctions.php');
    require_once(ROOT_DIR.'/model/getDataFromGoogle.php');
+
+   require_once(ROOT_DIR.'/model/conection-query-mysql.php');
    
    $jsonListSites = ROOT_DIR.'/data/sites.json';
  
@@ -161,7 +163,7 @@
       $dateOfChecks = array();
       $dateOfChecks['total'] = 0;
       $fileRoute=$jsonLogFolder.'/'.$today;
-      $fileLogStatus=$jsonLogFolder.'/'.$today.'/status.json';
+      $fileLogStatus=$fileRoute.'/status.json';
       $checkStatus = verifyQtyQueryByDay($fileRoute);
       $tempStatus = array();
       
@@ -191,13 +193,12 @@
                         }
                         makeJsonLogByDate($fileRoute,$jsonName,$currentDay,$start,$dateOfChecks);
                      }
-               }
-               $tempStatus[$day] = ['qty'=>$dateOfChecks['total'],'progres'=>0,'ready'=>false,'current'=>false];  
+               } 
                checkFileOrJsonCreate($fileLogStatus,$tempStatus);
             }
             $tempStatus[$day] = ['qty'=>$dateOfChecks['total'],'progres'=>0,'ready'=>true,'current'=>false];  
             checkFileOrJsonCreate($fileLogStatus,$tempStatus);
-            $time_elapsed_secs = microtime(true) - $startTime;
+            //$time_elapsed_secs = microtime(true) - $startTime;
             //print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución despues del FOR.<br>');
             return false;
          }else{
@@ -268,7 +269,7 @@
                                  if($count < $limitQueryBySeconds){
                                     $result = googleGetInfo($currentArticle,$day);
                                     $count++;
-                                    if(is_object($result) || is_array($result)){
+                                    if((is_object($result) || is_array($result)) && checkNotExistenceOfArticleAnalytics($result)){
                                        $listOfArticlesToSearch[$key][$dateNews][$id]['details'][$idArticle]['searchStatus'] = true;
                                        
                                        insertGoogleDataArticles($result);
