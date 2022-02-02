@@ -1,5 +1,5 @@
 <?php
-    function conection($query,$local=true){
+    function conection($query,$local=false){
         require ROOT_DIR.'/config/dataConection.php';
         $conn = mysqli_connect($servername,$username,$password,$database);
         if($local){$conn = mysqli_connect($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
@@ -16,7 +16,7 @@
         return $msj;
     }
 
-    function conectionCustom($query,$local=true){
+    function conectionCustom($query,$local=false){
         require ROOT_DIR.'/config/dataConection.php';
         $mysqli = new mysqli($servername,$username,$password,$database);
         if($local){$mysqli = new mysqli($servernameLocal,$usernameLocal,$passwordLocal,$databaseLocal);}
