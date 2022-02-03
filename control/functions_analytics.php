@@ -198,18 +198,18 @@
             }
             $tempStatus[$day] = ['qty'=>$dateOfChecks['total'],'progres'=>0,'ready'=>true,'current'=>false];  
             checkFileOrJsonCreate($fileLogStatus,$tempStatus);
-            //$time_elapsed_secs = microtime(true) - $startTime;
-            //print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución despues del FOR.<br>');
+            $time_elapsed_secs = microtime(true) - $startTime;
+            print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución despues del FOR.<br>');
             return false;
          }else{
             $dateSearch = getNextDayTosearch($day,$today);
             $testingCount=0;
             if($dateSearch!==false && $testingCount===0){
-               //echo('Día de busqueda =>'.$dateSearch.' <br> Carpeta donde busca =>'.$today.'<br> Contador =>'.$testingCount);
+               echo('Día de busqueda =>'.$dateSearch.' <br> Carpeta donde busca =>'.$today.'<br> Contador =>'.$testingCount);
                print_r(createLogOneDayTenDaysAgo($dateSearch,$dateSearch.'.json',$today));
                echo('\n');
                $time_elapsed_secs = microtime(true) - $startTime;
-               //print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución.<br>');
+               print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución.<br>');
                $testingCount++;
                return 'salida rara';
             }
@@ -240,16 +240,16 @@
 
    function searchOnGoogleOneDayTenDaysAgo($day,$jsonName,$today){
       global $qtyLimitDayBack,$qtyLimitDayBack,$listSites,$jsonLogFolder;
-      //$startTime = microtime(true);
+      $startTime = microtime(true);
       $fileRoute = $jsonLogFolder.'/'.$today;
       $fileLogRoute =$fileRoute.'/'.$jsonName;
       $fileLogStatus=$fileRoute.'/status.json';
-      //echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
+      echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
       if(file_exists($fileLogRoute) && file_exists($fileLogStatus)){
          $listOfArticlesToSearch = json_decode(file_get_contents($fileLogRoute),true);
          $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
 
-         //$time_elapsed_secs = microtime(true) - $startTime;
+         $time_elapsed_secs = microtime(true) - $startTime;
          
          if($tempStatus[$day]['ready']){
             $limitQueryBySeconds = 10;
@@ -280,11 +280,11 @@
                                        $tempStatus[$day]['current']=true;  
                                        checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                     }
-                                    //$time_elapsed_secs = microtime(true) - $startTime;
-                                    //print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
+                                    $time_elapsed_secs = microtime(true) - $startTime;
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
                                  }else{
-                                    //$time_elapsed_secs = microtime(true) - $startTime;
-                                    //print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
+                                    $time_elapsed_secs = microtime(true) - $startTime;
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
                                     return null;
                                  }
                               }
@@ -295,7 +295,7 @@
                }
             }
             if($tempStatus[$day]['progres'] >= $tempStatus[$day]['qty']){
-               //print_r('check status');
+               print_r('check status');
                $i = array_search($day,array_keys($tempStatus));
                $count=0;
                foreach ($tempStatus as $key => $value) {
@@ -307,8 +307,8 @@
             }
          }
       }
-      //$time_elapsed_secs = microtime(true) - $startTime;
-      //print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
+      $time_elapsed_secs = microtime(true) - $startTime;
+      print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
    }
 
    //recibe un array con una estructura que contiene fechas y dentro de ellas, las fechas consultadas en cada una 
