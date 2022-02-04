@@ -266,7 +266,7 @@
                                  $currentArticle->setId($article['id']);
                                  $currentArticle->setUrl($article['url']);
                                  $currentArticle->setSearchStatus($article['searchStatus']);
-                                 $goSearch = checkNotExistenceOfArticleAnalytics($result);
+                                 $goSearch = checkNotExistenceOfArticleAnalytics($currentArticle,$day);
                                  if($goSearch && $count < $limitQueryBySeconds ){
                                     $result = googleGetInfo($currentArticle,$day);
                                     $count++;
