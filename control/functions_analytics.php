@@ -141,7 +141,7 @@
             if($value['qty'] > $value['progres'] && !array_key_exists($key,$checkToday)){
                $checkToday[$key] = $value;
                if(!copy($yesterday.'/'.$key.'.json', $jsonLogFolder.'/'.$dateFolder.'/'.$key.'.json')){
-                  echo("error al copiar $yesterday.'/'.$key.'.json'...\n");
+                  echo("error al copiar $yesterday.'/'.$key.'.json'... \n");
                   return false;
                }
                checkFileOrJsonCreate($fileLogStatus,$checkToday);
@@ -207,7 +207,7 @@
             if($dateSearch!==false && $testingCount===0){
                echo('Día de busqueda =>'.$dateSearch.' <br> Carpeta donde busca =>'.$today.'<br> Contador =>'.$testingCount);
                print_r(createLogOneDayTenDaysAgo($dateSearch,$dateSearch.'.json',$today));
-               echo('\n');
+               echo(' \n');
                $time_elapsed_secs = microtime(true) - $startTime;
                print_r(timeCount($time_elapsed_secs).' <= tiempo de ejecución.<br>');
                $testingCount++;
@@ -244,7 +244,7 @@
       $fileRoute = $jsonLogFolder.'/'.$today;
       $fileLogRoute =$fileRoute.'/'.$jsonName;
       $fileLogStatus=$fileRoute.'/status.json';
-      echo('<=========> ROUTE: '.$fileLogStatus.'<=========>\n');
+      echo('<=========> ROUTE: '.$fileLogStatus.'<=========> \n');
       if(file_exists($fileLogRoute) && file_exists($fileLogStatus)){
          $listOfArticlesToSearch = json_decode(file_get_contents($fileLogRoute),true);
          $tempStatus = json_decode(file_get_contents($fileLogStatus),true);
@@ -282,10 +282,22 @@
                                        checkFileOrJsonCreate($fileLogStatus,$tempStatus);
                                     }
                                     $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR.\n');
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución dentro del googleFOR. \n');
+                                 }elseif(!$goSearch) {
+                                    //se actualiza el status
+                                    $tempStatus[$day]['progres'] += 1;
+                                    $tempStatus[$day]['current']=true;  
+                                    checkFileOrJsonCreate($fileLogStatus,$tempStatus);
+                                    // se actualiza json con listado de articulos
+                                    $listOfArticlesToSearch[$key][$dateNews][$id]['details'][$idArticle]['searchStatus'] = true;
+                                    checkFileOrJsonCreate($fileLogRoute,$listOfArticlesToSearch);
+                                    //se imprime tiempo de salida
+                                    $time_elapsed_secs = microtime(true) - $startTime;
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución cuando ya estaba registrado en la base de datos pero no ingresado en el JSON. \n');
+                                    return null;
                                  }else{
                                     $time_elapsed_secs = microtime(true) - $startTime;
-                                    print_r($time_elapsed_secs.' <= tiempo de ejecución.\n');
+                                    print_r($time_elapsed_secs.' <= tiempo de ejecución cuando article[\'searchStatus\'] es verdader. \n');
                                     return null;
                                  }
                               }
@@ -309,7 +321,7 @@
          }
       }
       $time_elapsed_secs = microtime(true) - $startTime;
-      print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa.\n');
+      print_r($time_elapsed_secs.' <= tiempo de ejecución de funcion completa. \n');
    }
 
    //recibe un array con una estructura que contiene fechas y dentro de ellas, las fechas consultadas en cada una 
