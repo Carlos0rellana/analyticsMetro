@@ -266,10 +266,11 @@
                                  $currentArticle->setId($article['id']);
                                  $currentArticle->setUrl($article['url']);
                                  $currentArticle->setSearchStatus($article['searchStatus']);
-                                 if($count < $limitQueryBySeconds){
+                                 $goSearch = checkNotExistenceOfArticleAnalytics($result);
+                                 if($goSearch && $count < $limitQueryBySeconds ){
                                     $result = googleGetInfo($currentArticle,$day);
                                     $count++;
-                                    if((is_object($result) || is_array($result)) && checkNotExistenceOfArticleAnalytics($result)){
+                                    if(is_object($result) || is_array($result)){
                                        $listOfArticlesToSearch[$key][$dateNews][$id]['details'][$idArticle]['searchStatus'] = true;
                                        
                                        insertGoogleDataArticles($result);

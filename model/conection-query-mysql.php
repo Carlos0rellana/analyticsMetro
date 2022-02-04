@@ -90,9 +90,9 @@
         return conection($sql);
     }
 
-    function checkNotExistenceOfArticleAnalytics($analytics){
-        require_once(ROOT_DIR.'/objects/analytics.php');
-        $sql = "select count(*) total from analytics where id_article='".$analytics->getIdArticle()."' and site='".$analytics->getSite()."' and date='".$analytics->getDate()."';";
+    function checkNotExistenceOfArticleAnalytics($article,$day){
+        require_once(ROOT_DIR.'/objects/article.php');
+        $sql = "select count(*) total from analytics where id_article='".$article->getId()."' and site='".$article->getSite()."' and date='".$day."';";
         $tempCurrent = conection($sql);
         if(array_key_exists('success',$tempCurrent)){
             return $tempCurrent['success'][0]['total'] < 1;
