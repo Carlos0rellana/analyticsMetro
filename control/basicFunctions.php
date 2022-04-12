@@ -47,4 +47,8 @@
         }
         return $sec;
     }
+    function verifySite($name){
+        $listSites = json_decode(file_get_contents(ROOT_DIR.'/data/sites.json'),true);
+        return(array_key_exists($name,$listSites));
+    }
 ?>
