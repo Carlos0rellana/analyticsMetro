@@ -42,7 +42,12 @@
     }
 
     if($statusSite) {
-        echo(json_encode(getNotFoundList($site,$start,$end,$http)));
+        $currentData = getNotFoundList($site,$start,$end,$http);
+        $finale = array();
+        $finale['site']=$site;
+        $finale['qty'] =count($currentData);
+        $finale['results']=$currentData;
+        echo(json_encode($finale));
     }else{
         echo(json_encode($error));
     }
