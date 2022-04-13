@@ -46,7 +46,9 @@
         $finale = array();
         $finale['site']=$site;
         $finale['qty'] =count($currentData);
-        $finale['results']=$currentData;
+        if(count($currentData)>0){
+            $finale['results']=$currentData;
+        }
         echo(json_encode($finale));
     }else{
         echo(json_encode($error));
