@@ -1,7 +1,7 @@
 {
     "mwn": {
           "id":"mwn",
-          "websiteDomain": "https://metroworldnews.com",
+          "websiteDomain": "https://www.metroworldnews.com",
           "websiteName": "Metro World News",
           "status":true,
           "metroId":"227458294",
@@ -9,7 +9,7 @@
     },
     "mwnargentina": {
             "id":"mwnargentina",
-            "websiteDomain": "https://publimetro.com.ar",
+            "websiteDomain": "https://www.publimetro.com.ar",
             "websiteName": "Publimetro Argentina",
             "status":true,
             "metroId":"208687521",
@@ -97,7 +97,7 @@
     },
     "fayerwayer": {
             "id":"fayerwayer",
-            "websiteDomain": "www.fayerwayer.com",
+            "websiteDomain": "https://www.fayerwayer.com",
             "websiteName": "FayerWayer",
             "status":true,
             "metroId":"158967325",
@@ -105,7 +105,7 @@
     },
     "ferplei": {
             "id":"ferplei",
-            "websiteDomain": "https://ferplei.com",
+            "websiteDomain": "https://www.ferplei.com",
             "websiteName": "Ferplei",
             "status":true,
             "metroId":"230035980",
