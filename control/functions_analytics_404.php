@@ -20,7 +20,7 @@
             foreach ($detailsList as $key => $objectArticle) {
                $currentData = array();
                $currentData['title_filter'] =$objectArticle['dimensions'][0];
-               //$currentData['site_id'] = $site;
+               $currentData['site_id'] = $site;
                $currentData['url']  =$objectArticle['dimensions'][1];
                $completeUrl = $urlBase.$currentData['url'];
                $detailReport = $objectArticle->getMetrics()[0];
@@ -29,6 +29,7 @@
                if($verifiHttpStatus){
                    $currentData['http-status'] = httpResponses($completeUrl);
                }
+               
                array_push($resultData,$currentData);
             }
         }

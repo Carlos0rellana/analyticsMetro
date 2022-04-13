@@ -44,7 +44,7 @@
     if($statusSite) {
         $currentData = getNotFoundList($site,$start,$end,$http);
         $finale = array();
-        //$finale['site']=$site;
+        $finale['site']=$site;
         $finale['qty'] =count($currentData);
         if(count($currentData)>0){
             $finale['results']=$currentData;
