@@ -34,22 +34,21 @@ class Dms extends \Google\Service\Resource
    * response. (dms.messages)
    *
    * @param string $parent Required. Space resource name, in the form "spaces".
-   * Example: spaces/AAAAMpdlehY
+   * Example: spaces/AAAAAAAAAAA
    * @param Message $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId Optional. A unique request ID for this message.
-   * If a message has already been created in the space with this request ID, the
-   * subsequent request will return the existing message and no new message will
-   * be created.
+   * Specifying an existing request ID returns the message created with that ID
+   * instead of creating a new message.
    * @opt_param string threadKey Optional. Opaque thread identifier string that
    * can be specified to group messages into a single thread. If this is the first
    * message with a given thread identifier, a new thread is created. Subsequent
    * messages with the same thread identifier will be posted into the same thread.
-   * This relieves bots and webhooks from having to store the Google Chat thread
-   * ID of a thread (created earlier by them) to post further updates to it. Has
-   * no effect if thread field, corresponding to an existing thread, is set in
-   * message.
+   * This relieves Chat apps and webhooks from having to store the Google Chat
+   * thread ID of a thread (created earlier by them) to post further updates to
+   * it. Has no effect if thread field, corresponding to an existing thread, is
+   * set in message.
    * @return Message
    */
   public function messages($parent, Message $postBody, $optParams = [])
@@ -63,22 +62,21 @@ class Dms extends \Google\Service\Resource
    * response. (dms.webhooks)
    *
    * @param string $parent Required. Space resource name, in the form "spaces".
-   * Example: spaces/AAAAMpdlehY
+   * Example: spaces/AAAAAAAAAAA
    * @param Message $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId Optional. A unique request ID for this message.
-   * If a message has already been created in the space with this request ID, the
-   * subsequent request will return the existing message and no new message will
-   * be created.
+   * Specifying an existing request ID returns the message created with that ID
+   * instead of creating a new message.
    * @opt_param string threadKey Optional. Opaque thread identifier string that
    * can be specified to group messages into a single thread. If this is the first
    * message with a given thread identifier, a new thread is created. Subsequent
    * messages with the same thread identifier will be posted into the same thread.
-   * This relieves bots and webhooks from having to store the Google Chat thread
-   * ID of a thread (created earlier by them) to post further updates to it. Has
-   * no effect if thread field, corresponding to an existing thread, is set in
-   * message.
+   * This relieves Chat apps and webhooks from having to store the Google Chat
+   * thread ID of a thread (created earlier by them) to post further updates to
+   * it. Has no effect if thread field, corresponding to an existing thread, is
+   * set in message.
    * @return Message
    */
   public function webhooks($parent, Message $postBody, $optParams = [])

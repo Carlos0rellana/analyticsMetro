@@ -18,4 +18,14 @@
         return $httpCode;
     }
 
+    function httpGETResponses($url){
+        $handle = curl_init($url);
+        curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($handle, CURLOPT_HEADER, 0);
+        $response = curl_exec($handle);
+        curl_close($handle);
+        return $response;
+    }
+
 ?>
